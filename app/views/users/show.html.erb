@@ -1,0 +1,54 @@
+ <head>
+  <style>
+   .table {
+    margin-bottom: 0;
+   }
+   tr.hv:hover{
+    background-color: #EEEEEE	;
+　 }
+  </style>
+ <head>
+  
+  
+ <body>
+  <main>
+  <p id="notice"></p>
+  <div class="container px-5 px-sm-0">
+  <div class="row"> 
+   <div class="col-lg-3">
+    <%= render 'books/list', book: @book, users: @users %>
+   </div>
+
+  <div class="col-lg-8 offset-md-1">
+   <thead>
+     <h2>Books</h2>
+     <table class="table">
+       <tbody>
+        <tr>
+         <th></th>
+         <th>Title</th>
+         <th>Opinion</th>
+        </tr>
+       </tbody>
+     </table>
+   </thead>
+
+   <% @books.each_with_index do |book,index| %>
+   <table class="table">
+   <tbody>
+    <tr class="hv">
+     <% @users.each do |user| %>
+      <td><%= link_to(image_tag(user.get_image, width: "80px", height: "80px"), edit_user_path(user) ) %></td>
+     <% end %>
+     <td><%= link_to book.title, book_path(book.id) %></td>
+     <td><%= book.body %></td>
+    </tr>
+   </tbody>
+   </table>
+   <% end %>
+ 
+  </div>
+  </div>
+  </div>
+  </maim>
+ </body>

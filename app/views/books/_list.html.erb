@@ -1,0 +1,57 @@
+ <head>
+  <%#= stylesheet_pack_tag 'books', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <style>
+   .table {
+    table-layout: fixed;
+    width: 100%;
+    /*margin-bottom: 20px;*/
+   }
+   .from-group{
+    padding-bottom: 15px;
+   }
+   .btn
+   color: #fff;
+   background-color: #eb6100;
+   }
+  </style>
+ </head>
+
+
+ <body>
+   <h2>User info</h2>
+   <% users.each do |user| %>
+    <%= image_tag user.get_image, width: "100px", height: "100px" %><!-- 写真のやつ -->
+      <table class="table">
+       <tbody>
+        <tr>
+         <th>name</th>
+         <th><%= user.name %></th>
+        </tr>
+        <tr>
+         <th>introduction</th>
+         <th><%= user.introduction %></th>
+        </tr>
+       </tbody>
+      </table>
+      <p></p>
+      <%= link_to edit_user_path(user), class: "btn btn-block btn-outline-secondary" do %>
+       <i class="fa-solid fa-user-gear"></i>
+      <% end %>
+   <% end %>
+   
+   <!-- ここからはnew book -->
+  <h2 class="mt-3">New book</h2>
+  <%= form_with model: Book.new do |f| %>
+   <div class="from-group">
+    <p>Title</p>
+     <%= f.text_field :title, style: "width: 100%; padding: 5px 10px;", class: "form-control" %>
+	  </div>
+	  <div class="from-group">
+    <p>Opinion</p>
+     <%= f.text_area :body, style: "width: 100%; height: 2; padding: 5px 10px;", class: "form-control" %>
+   </div>
+   <div class="from-group">
+     <%= f.submit "Create Book", class: "btn btn-success" %>
+   </div>
+  <% end %>
+ </body>

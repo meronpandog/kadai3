@@ -1,0 +1,48 @@
+<head>
+ <style>
+  .from-group{
+    padding-bottom: 15px;
+   }
+ </style>
+</head>
+
+<body>
+<main>
+ <p id="notice"></p>
+ <div class="container">
+ <div class="row"> 
+ <div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto"> 
+  <h2>User info</h2>
+ 
+   <% if @user.errors.any? %>
+   <ul>
+    <h3><%= @user.errors.count %> errors prohibited this book from being saved:</h3>
+     <% @user.errors.full_messages.each do |message| %>
+     <li><%= message %></li>
+    <% end %>
+   </ul>
+  <% end %>
+ 
+   <%= form_with model: @user, url: user_path(@user.id), method: :patch do |f| %>
+    <div class="from-group">
+     <label>Name</label>
+      <%= f.text_field :name, style: "width: 100%; padding: 5px 10px;", class: "form-control" %><!--名前の入力画面-->
+    </div>
+    <div class="from-group">
+     <label>Image</label>
+      <%= f.file_field :image, accept: "image/*", style: "width: 100%;" %><!--写真投稿のやつ-->
+    </div>
+    <div class="from-group">
+     <label>Introduction</label>
+      <%= f.text_area :introduction, style: "width: 100%; height: 2; padding: 5px 10px;", class: "form-control" %><!--これの投稿のやつ-->
+    </div>
+    <div class="from-group">
+     <%= f.submit "Update Book", class: "btn btn-secondary" %>
+    </div>
+    <% end %>  
+    
+ </div>
+ </div>
+ </div>
+</main>
+</body>

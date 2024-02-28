@@ -1,0 +1,51 @@
+<head>
+ <style>
+  .table td{
+  boder-spacing: 2px;
+  }
+  .tr{
+   width: 100%;
+  }
+ </style>
+</head>
+
+<body>
+ <main>
+  <div><%= flash[:notice] %></div>
+  <p id="notice"></p>
+  <div class="container">
+  <div class="row"> 
+   <div class="col-lg-3">
+    <%= render 'books/list', book: @book, users: @users %>
+   </div>
+
+   <div class="col-lg-8 offset-md-1">
+    <h2>Book detail</h2>
+    <table class="table">
+    <tbody>
+     <tr class="tr" style="display: table; white-space: nowrap;">
+      <% @users.each do |user| %>
+       <td><%= link_to(image_tag(user.get_image, width: "100px", height: "100px"), edit_user_path(user) ) %>  <!-- 写真のやつ -->
+       <br><%= link_to user.name, edit_user_path(user) %>
+       </td>
+      <% end %>
+ 
+      <% latest_book = @books.order(id: :desc).first %>
+       <% if latest_book %>
+        <td><%= link_to latest_book.title, book_path(latest_book.id) %></td>
+        <td><%= latest_book.body %></td>
+        <td><%= link_to "Edit", edit_book_path(latest_book.id), class: "btn btn-success" %></td>
+        <td>
+        <% if latest_book.user == current_user %>
+         <%= link_to "Destroy", book_path(latest_book.id), method: :delete, "data-confirm" => "本当に削除しますか？", class: "btn btn-danger" %>
+        <% end %>
+        </td>
+       <% end %>
+      </tr>
+     </tbody>
+     </table>
+    </div>
+   </div>
+   </div>
+ </main>
+</body>
